@@ -19,10 +19,9 @@ echo "<form style=\"text-align: center\" action=\"content1.php\" method=\"POST\"
 echo "<table style=\"margin: auto\">";
 echo "<tr>";
 echo "<td>Login Name:</td>";
-echo "<td><input type=\"text\" name=\"username\"></td>\n";
+echo "<td><input type=\"text\" name=\"username\"><input type=\"submit\" value=\"Login\"></td>\n";
 echo "</tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"Submit\">\n";
 echo "</form>\n";
 
 echo "</body>\n";

@@ -5,23 +5,18 @@ ini_set('display_errors', 1);
 
 session_start();
 
-if(isset($_POST['action']) && $_POST['action'] == 'end') {
-    $_SESSION = array();
-    session_destroy();
-    $filepath = explode('/', $_SERVER['PHP_SELF'], -1);
-    $filepath = implode('/', $filepath);
-    $redirect = "http://".$_SERVER['HTTP_HOST'].$filepath;
-    header(("location: {$redirect}/logout.html"), true);
-}
-
 echo "<center>";
 
 if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1){
     echo "Welcome " . $_SESSION['username'];
-    echo "<a href=\"content2.php\"> content2 </a>";
+    echo "<a href=\"content1.php\"> content1 </a>";
+    echo "<br>";
+    echo "<a href=\"logout.php\">Logout</a>";
 }
 else{
-    header( 'Location: login.php' ) ;
+    echo "<br><br><br><br>";
+    echo "You need to login first.  Redirecting to login page...";
+    header( 'Refresh:3; URL=login.php' ) ;
 }
 
 echo "</center";
