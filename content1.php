@@ -5,25 +5,37 @@ ini_set('display_errors', 1);
 
 session_start();
 
-if(isset($_GET['action']) && $_GET['action'] == 'end') {
-    $_SESSION = array();
-    session_destroy();
-    $filepath = explode('/', $_SERVER['PHP_SELF'], -1);
-    $filepath = implode('/', $filepath);
-    $redirect = "http://".$_SERVER['HTTP_HOST'].$filepath;
-    header(("location: {$redirect}/logout.html"), true);
-}
+echo "<center>";
 
 if(session_status() == PHP_SESSION_ACTIVE){
-    if(!isset($_POST['username'])){
-        echo "Please Login";
+    $nulluser = 0;
+    if(isset($_POST['username'])){
+        if ($_POST['username'] == null || strlen($_POST['username']) == 0) {
+            echo "A username must be entered. Click <a href=\"login.php\">here</a> to return to the login screen.";
+            $nulluser = 1;
+        }
+        else{
+            $_SESSION['visited'] = 0;
+            $_SESSION["loggedIn"] = 1;
+            $_SESSION["username"] = $_POST['username'];
+        }   
     }
-    elseif ($_POST['username'] == null || strlen($_POST['username']) == 0) {
-        echo "A username must be entered. Click here to return to the login screen.";
+
+    if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1 && $nulluser == 0){
+        echo "Hello " . $_SESSION['username'];
+        echo "<br>";
+        echo "You have visited this page " . $_SESSION['visited'] . " times before. Click <a href=\"logout.php\">here</a> to logout.\n";
+        echo "<br>";
+        echo "<a href=\"content2.php\"> content2 </a>";
+        $_SESSION['visited']++;
     }
-    else{
-        echo "Welcome " . $_POST['username'];
+    elseif($nulluser == 0){
+        echo "<br><br><br><br>";
+        echo "You need to login first.  Redirecting to login page...";
+        header( 'Refresh:3; URL=login.php' ) ;
     }
 }
+
+echo "</center";
 
 ?>
