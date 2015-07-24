@@ -20,7 +20,8 @@ if(session_status() == PHP_SESSION_ACTIVE){
     $_SESSION = array();
     session_destroy();
     echo "<br><br><br><br>";
-    echo "You are being logged out.";
+	echo "You are being logged out. ";
+	echo "<a href=\"login.php\">Back to Login</a>";
     header("Refresh:3; URL=login.php");
 }
 
