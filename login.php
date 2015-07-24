@@ -8,7 +8,6 @@ echo "<head>\n";
 echo "<title> Login </title>\n";
 echo "</head>\n";
 echo "<body>\n";
-
 echo "<br>\n";
 echo "<br>\n";
 echo "<br>\n";
@@ -24,9 +23,9 @@ echo "</tr>";
 echo "<tr>";
 echo "<td>Password: </td>";
 echo "<td><input id=\"password\" type=\"password\" name=\"password\"></td>";
+echo "<td><input type=\"text\" name=\"username\"><input type=\"submit\" value=\"Login\"></td>\n";
 echo "</tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"Submit\">\n";
 echo "</form>\n";
 
 	//The Guest Button
