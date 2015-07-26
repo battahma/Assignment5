@@ -29,8 +29,13 @@ if(isset($_GET['Min-Multiplicand']) && isset($_GET['Max-Multiplicand']) && isset
 			echo 'Error1: Min is bigger than max';
 		}
 		else{
-			//Create the Table
-			echo 'We are good to go hoss';
+			if(is_int($MinCand) && is_int($MaxCand) && is_int($MinPlr) && is_int($MaxPlr)){
+				//Create the Table
+				echo 'We are good to go hoss';
+			}
+			else{
+				echo 'Error4: Value(s) are not integers';
+			}
 		}
 	}
 	else{
