@@ -1,7 +1,8 @@
 
 
 <?php
-
+echo '<br><br><br><br>';
+echo '<div style="text-align:center"><h2> Create Your Multiplication Table </h2></div>';
 //http://localhost/assignment5/Multtable.php/?Min-Multiplicand=1&Max-Multiplicand=2&Min-Multiplier=3&Max-Multiplier=4
 //Function to check if the Min is Bigger than the Max
 function isBigger($min, $max){
@@ -11,6 +12,29 @@ function isBigger($min, $max){
 	else{
 		return false;
 	}
+}
+
+//Creating the Table function
+function createTable($x, $X, $y, $Y){
+	echo '<table align = "center" border="1" cellspacing=0>'; echo '<tr>';
+	echo '<th></th>';
+	for ($i=$x;$i<=$X;$i++){
+		echo '<th>'.$i.'</th>';
+	}
+	for ($i=$y;$i<=$Y;$i++){
+		echo '<tr><td style="font-weight:bold">' .$i. '</td>';
+		for($j=$x;$j<=$X;$j++){
+			echo '<td>'.$j*$i.'</td>';
+		}
+		echo '</tr>';
+	}  
+	echo '</table>';
+	
+	echo '<style media="screen" type="text/css">
+			tr:nth-child(2n){
+				background:lightgreen;
+			}
+		</style>';
 }
 
 //First check if they are set
@@ -23,37 +47,61 @@ if(isset($_GET['Min-Multiplicand']) && isset($_GET['Max-Multiplicand']) && isset
 	//Second check to see if they are Null
 	if(!empty($MinCand) && !empty($MaxCand) && !empty($MinPlr) && !empty($MaxPlr))
 	{
-		if(isBigger($MinCand, $MaxCand)||isBigger($MinPlr, $MaxPlr))
-		{
-			//The Min is Bigger than the Max
-			echo 'Error1: Min is bigger than max';
-		}
-		else{
-			if(is_int($MinCand) && is_int($MaxCand) && is_int($MinPlr) && is_int($MaxPlr)){
-				//Create the Table
-				echo 'We are good to go hoss';
+		if(ctype_digit($MinCand) && ctype_digit($MaxCand) && ctype_digit($MinPlr) && ctype_digit($MaxPlr)){
+			$MinCand = (int)$MinCand;
+			$MaxCand = (int)$MaxCand;
+			$MinPlr = (int)$MinPlr;
+			$MaxPlr = (int)$MaxPlr;
+			
+			
+			if(isBigger($MinCand, $MaxCand)||isBigger($MinPlr, $MaxPlr))
+			{
+				//The Min is Bigger than the Max
+				if(isBigger($MinCand, $MaxCand)){
+					echo 'Minimum Multiplicand value is bigger than Maximum Multiplicand';
+					echo '<br';
+				}
+				if(isBigger($MinPlr, $MaxPlr)){
+					echo 'Minimum Multiplier value is bigger than Maximum Multiplier';
+					echo '<br>';
+				}
 			}
 			else{
-				echo 'Error4: Value(s) are not integers';
+				//Create the Table
+				createTable($MinCand, $MaxCand, $MinPlr, $MaxPlr);
+				
 			}
+		}
+		else{
+			if(!ctype_digit($MinCand)){echo "Error: Minimum Multiplicand is not an integer."; echo "<br>";}
+			if(!ctype_digit($MaxCand)){echo "Error: Maximum Multiplicand is not an integer."; echo "<br>";}
+			if(!ctype_digit($MinPlr)){echo "Error: Minimum Multiplier is not an integer."; echo "<br>";}
+			if(!ctype_digit($MaxPlr)){echo "Error: Maximum Multiplier is not an integer."; echo "<br>";}
 		}
 	}
 	else{
 		//Values are null
-		echo 'Error2: Values are have nothing in them';
+		if(empty($MinCand)){echo "Minimum Multiplicand missing Parameter"; echo "<br>";}
+		if(empty($MaxCand)){echo "Maximum Multiplicand missing Parameter"; echo "<br>";}
+		if(empty($MinPlr)){echo "Minimum Multiplier missing Parameter"; echo "<br>";}
+		if(empty($MaxPlr)){echo "Maximum Multiplier missing Parameter"; echo "<br>";}
 	}
 }
 else{
 	//Values are not set
-	echo 'Error 3: Values not set';
+	echo 'Please set the values';
 }
 	
 ?>
 
+<div style="text-align:center">
 <form action ="multtable.php" method="GET">
-	Min-Multiplicand:<br><input type="text" name="Min-Multiplicand"><br>
-	Max-Multiplicand:<br><input type="text" name="Max-Multiplicand"><br>
-	Min-Multiplier:<br><input type="text" name="Min-Multiplier"><br>
-	Max-Multiplier:<br><input type="text" name="Max-Multiplier"><br>
+<br>
+<br>
+	Minimum Multiplicand:<br><input type="text" name="Min-Multiplicand"><br>
+	Maximum Multiplicand:<br><input type="text" name="Max-Multiplicand"><br>
+	Minimum Multiplier:<br><input type="text" name="Min-Multiplier"><br>
+	Maximum tiplier:<br><input type="text" name="Max-Multiplier"><br>
 	<input type= "submit" value ="Submit">
 </form>
+</div>
