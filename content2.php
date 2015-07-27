@@ -5,20 +5,20 @@ ini_set('display_errors', 1);
 
 session_start();
 
-echo "<center>";
-
 if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1){
+    echo "<center>";
     echo "Welcome " . $_SESSION['username'];
     echo "<a href=\"content1.php\"> content1 </a>";
     echo "<br>";
     echo "<a href=\"logout.php\">Logout</a>";
+    echo "</center";
 }
 else{
+    header( 'Refresh:3; URL=login.php' ) ;
+    echo "<center>";
     echo "<br><br><br><br>";
     echo "You need to login first.  Redirecting to login page...";
-    header( 'Refresh:3; URL=login.php' ) ;
+    echo "</center";
 }
-
-echo "</center";
 
 ?>
